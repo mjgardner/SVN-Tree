@@ -163,7 +163,7 @@ every time the C<root> attribute is accessed.
 =attr projects
 
 Read-only accessor returning an array reference containing one or more
-L<Tree::Path::Class|Tree::Path::Class> hierarachies for the top-level project
+L<Tree::Path::Class|Tree::Path::Class> hierarchies for the top-level project
 directories in the repository.  In the case of a repository with F<trunk>,
 F<branches> and F<tags> at the top level, this will be one element referring
 to the same hierarchy available through the C<tree> attribute.
@@ -172,7 +172,7 @@ Like C<tree> this will also be updated with C<root> accesses.
 
 =attr branches
 
-Read-only acccessor returning a hash reference of arrays containing
+Read-only accessor returning a hash reference of arrays containing
 L<Tree::Path::Class|Tree::Path::Class> objects for each branch in each project
 in the repository.  The hash keys are the names of the projects, and F<trunk>
 counts as a branch.

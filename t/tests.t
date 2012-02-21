@@ -14,9 +14,8 @@ my $fs        = $repos->fs;
 
 my $svntree = new_ok(
     'SVN::Tree' => [ root => $fs->revision_root( $fs->youngest_rev ) ] );
-is( $svntree->tree->path->stringify, '/', 'empty repo tree' );
-is_deeply( [ map { $ARG->tree->name } @{ $svntree->projects } ],
-    [], 'no projects' );
-is( scalar keys %{ $svntree->branches }, 0, 'no branches' );
+is( $svntree->tree->path->stringify,     '/', 'empty repo tree' );
+is( scalar @{ $svntree->projects },      0,   'no projects' );
+is( scalar keys %{ $svntree->branches }, 0,   'no branches' );
 
 done_testing();
