@@ -29,12 +29,14 @@ has tree => (
 has projects => (
     qw(:ro :required :lazy_build),
     isa => ArrayRef [ Maybe ['Tree::Path::Class'] ],
+    writer   => '_set_projects',
     init_arg => undef,
 );
 
 has branches => (
     qw(:ro :required :lazy_build),
     isa => HashRef [ ArrayRef [ Maybe ['Tree::Path::Class'] ] ],
+    writer   => '_set_branches',
     init_arg => undef,
 );
 
@@ -82,6 +84,8 @@ around root => sub {
     my ( $orig, $self ) = splice @ARG, 0, 2;
     my $root = $self->$orig(@ARG);
     $self->_set_tree( $self->_root_to_tree($root) );
+    $self->_set_projects( $self->_build_projects );
+    $self->_set_branches( $self->_build_branches );
     return $root;
 };
 
@@ -164,9 +168,13 @@ directories in the repository.  In the case of a repository with F<trunk>,
 F<branches> and F<tags> at the top level, this will be one element referring
 to the same hierarchy available through the C<tree> attribute.
 
+Like C<tree> this will also be updated with C<root> accesses.
+
 =attr branches
 
 Read-only acccessor returning a hash reference of arrays containing
 L<Tree::Path::Class|Tree::Path::Class> objects for each branch in each project
 in the repository.  The hash keys are the names of the projects, and F<trunk>
 counts as a branch.
+
+Like C<tree> this will also be updated with C<root> accesses.
