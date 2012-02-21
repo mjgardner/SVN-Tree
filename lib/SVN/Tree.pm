@@ -16,7 +16,7 @@ use MooseX::Has::Options;
 use MooseX::Types::Moose qw(ArrayRef HashRef Maybe);
 use MooseX::MarkAsMethods autoclean => 1;
 
-has root => ( qw(:ro :required), isa => '_p_svn_fs_root_t' );
+has root => ( qw(:rw :required), isa => '_p_svn_fs_root_t' );
 
 has tree => (
     qw(:ro :required :lazy),
@@ -79,21 +79,21 @@ sub _children_value {
     return map { $ARG->value } shift->children;
 }
 
-# recreate tree every time root is accessed
-around root => sub {
-    my ( $orig, $self ) = splice @ARG, 0, 2;
-    my $root = $self->$orig(@ARG);
+# recreate tree every time root is changed
+after root => sub {
+    my ( $self, $root ) = @ARG;
+    return if !$root;
     $self->_set_tree( $self->_root_to_tree($root) );
     $self->_set_projects( $self->_build_projects );
     $self->_set_branches( $self->_build_branches );
-    return $root;
+    return;
 };
 
 sub _root_to_tree {
     my ( $self, $root ) = @ARG;
     my $tree        = Tree::Path::Class->new(q{/});
     my $entries_ref = $root->dir_entries(q{/});
-    while ( my ( $name, $dirent ) = each %{$entries_ref} ) {
+    while ( my ( $name => $dirent ) = each %{$entries_ref} ) {
         $tree->add_child( $self->_dirent_to_tree( "/$name" => $dirent ) );
     }
     return $tree;
@@ -110,7 +110,7 @@ sub _dirent_to_tree {
         when ($SVN::Node::file) { $tree->set_value( file($name) ) }
         when ($SVN::Node::dir) {
             $tree->set_value( dir($name) );
-            while ( my ( $child_name, $child_dirent )
+            while ( my ( $child_name => $child_dirent )
                 = each %{ $self->root->dir_entries($entry_name) } )
             {
                 $tree->add_child(
@@ -152,13 +152,13 @@ L<roots|SVN::Fs/_p_svn_fs_root> in Subversion API parlance.
 
 =attr root
 
-Required read-only attribute referencing a L<_p_svn_fs_root|SVN::Fs/_p_svn_fs_root> object.
+Required attribute referencing a L<_p_svn_fs_root|SVN::Fs/_p_svn_fs_root> object.
 
 =attr tree
 
 Read-only accessor for the L<Tree::Path::Class|Tree::Path::Class> object
 describing the filesystem hierarchy contained in the C<root>.  Will be updated
-every time the C<root> attribute is accessed.
+every time the C<root> attribute is changed.
 
 =attr projects
 
@@ -168,7 +168,7 @@ directories in the repository.  In the case of a repository with F<trunk>,
 F<branches> and F<tags> at the top level, this will be one element referring
 to the same hierarchy available through the C<tree> attribute.
 
-Like C<tree> this will also be updated with C<root> accesses.
+Like C<tree> this will also be updated with C<root> changes.
 
 =attr branches
 
@@ -177,4 +177,4 @@ L<Tree::Path::Class|Tree::Path::Class> objects for each branch in each project
 in the repository.  The hash keys are the names of the projects, and F<trunk>
 counts as a branch.
 
-Like C<tree> this will also be updated with C<root> accesses.
+Like C<tree> this will also be updated with C<root> changes.
