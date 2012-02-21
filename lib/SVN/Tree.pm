@@ -6,12 +6,14 @@ use strict;
 
 # VERSION
 use English '-no_match_vars';
+use List::MoreUtils 'any';
+use Path::Class;
 use SVN::Core;
 use SVN::Fs;
-use Path::Class;
 use Tree::Path::Class;
 use Moose;
 use MooseX::Has::Options;
+use MooseX::Types::Moose qw(ArrayRef HashRef Maybe);
 use MooseX::MarkAsMethods autoclean => 1;
 
 has root => ( qw(:ro :required), isa => '_p_svn_fs_root_t' );
@@ -23,6 +25,57 @@ has tree => (
     init_arg => undef,
     default  => sub { $ARG[0]->_root_to_tree( $ARG[0]->root ) },
 );
+
+has projects => (
+    qw(:ro :required :lazy_build),
+    isa => ArrayRef [ Maybe ['Tree::Path::Class'] ],
+    init_arg => undef,
+);
+
+has branches => (
+    qw(:ro :required :lazy_build),
+    isa => HashRef [ ArrayRef [ Maybe ['Tree::Path::Class'] ] ],
+    init_arg => undef,
+);
+
+sub _build_projects {
+    my $self = shift;
+    my $tree = $self->tree;
+    given ( \&_match_svn_dirs ) {
+        when ( $_->( _children_value($tree) ) ) { return [$tree] }
+        when ( $_->( map { _children_value($ARG) } $tree->children ) ) {
+            return [ $tree->children ];
+        }
+    }
+    return [];
+}
+
+sub _build_branches {
+    my $self = shift;
+    my %branches;
+    for my $project ( @{ $self->projects } ) {
+        @{ $branches{$project} }
+            = map { _trunk_or_branches($ARG) } $project->children;
+    }
+    return \%branches;
+}
+
+sub _trunk_or_branches {
+    my $tree = shift;
+    given ( $tree->value ) {
+        when ('trunk')    { return $tree }
+        when ('branches') { return $tree->children }
+    }
+    return;
+}
+
+sub _match_svn_dirs {
+    return any { $_ ~~ [qw(trunk branches tags)] } @ARG;
+}
+
+sub _children_value {
+    return map { $ARG->value } shift->children;
+}
 
 # recreate tree every time root is accessed
 around root => sub {
@@ -102,3 +155,18 @@ Required read-only attribute referencing a L<_p_svn_fs_root|SVN::Fs/_p_svn_fs_ro
 Read-only accessor for the L<Tree::Path::Class|Tree::Path::Class> object
 describing the filesystem hierarchy contained in the C<root>.  Will be updated
 every time the C<root> attribute is accessed.
+
+=attr projects
+
+Read-only accessor returning an array reference containing one or more
+L<Tree::Path::Class|Tree::Path::Class> hierarachies for the top-level project
+directories in the repository.  In the case of a repository with F<trunk>,
+F<branches> and F<tags> at the top level, this will be one element referring
+to the same hierarchy available through the C<tree> attribute.
+
+=attr branches
+
+Read-only acccessor returning a hash reference of arrays containing
+L<Tree::Path::Class|Tree::Path::Class> objects for each branch in each project
+in the repository.  The hash keys are the names of the projects, and F<trunk>
+counts as a branch.
