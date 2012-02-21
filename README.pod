@@ -37,13 +37,13 @@ L<roots|SVN::Fs/_p_svn_fs_root> in Subversion API parlance.
 
 =head2 root
 
-Required read-only attribute referencing a L<_p_svn_fs_root|SVN::Fs/_p_svn_fs_root> object.
+Required attribute referencing a L<_p_svn_fs_root|SVN::Fs/_p_svn_fs_root> object.
 
 =head2 tree
 
 Read-only accessor for the L<Tree::Path::Class|Tree::Path::Class> object
 describing the filesystem hierarchy contained in the C<root>.  Will be updated
-every time the C<root> attribute is accessed.
+every time the C<root> attribute is changed.
 
 =head2 projects
 
@@ -53,7 +53,7 @@ directories in the repository.  In the case of a repository with F<trunk>,
 F<branches> and F<tags> at the top level, this will be one element referring
 to the same hierarchy available through the C<tree> attribute.
 
-Like C<tree> this will also be updated with C<root> accesses.
+Like C<tree> this will also be updated with C<root> changes.
 
 =head2 branches
 
@@ -62,7 +62,7 @@ L<Tree::Path::Class|Tree::Path::Class> objects for each branch in each project
 in the repository.  The hash keys are the names of the projects, and F<trunk>
 counts as a branch.
 
-Like C<tree> this will also be updated with C<root> accesses.
+Like C<tree> this will also be updated with C<root> changes.
 
 =head1 SUPPORT
 

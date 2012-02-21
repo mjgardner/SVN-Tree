@@ -29,7 +29,7 @@ functions = :builtins
 exclude_functions = print
 
 [Subroutines::ProhibitCallsToUndeclaredSubs]
-exempt_subs = Moose::around Moose::has Path::Class::dir Path::Class::file
+exempt_subs = Moose::after Moose::has Path::Class::dir Path::Class::file
 
 [Subroutines::ProhibitUnusedPrivateSubroutines]
 private_name_regex = _(?!build_)\w+
