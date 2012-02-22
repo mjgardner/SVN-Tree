@@ -76,6 +76,7 @@ sub _match_svn_dirs {
 }
 
 sub _children_value {
+    return if !$ARG[0];
     return map { $ARG->value } shift->children;
 }
 
@@ -110,8 +111,9 @@ sub _dirent_to_tree {
         when ($SVN::Node::file) { $tree->set_value( file($name) ) }
         when ($SVN::Node::dir) {
             $tree->set_value( dir($name) );
+            my %child_entries = %{ $self->root->dir_entries($entry_name) };
             while ( my ( $child_name => $child_dirent )
-                = each %{ $self->root->dir_entries($entry_name) } )
+                = each %child_entries )
             {
                 $tree->add_child(
                     $self->_dirent_to_tree(
