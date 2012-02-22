@@ -11,11 +11,17 @@ use SVN::Core;
 use SVN::Fs;
 use Tree::Path::Class;
 use Moose;
+use Moose::Util::TypeConstraints;
 use MooseX::Has::Options;
 use MooseX::Types::Moose qw(ArrayRef HashRef Maybe);
 use MooseX::MarkAsMethods autoclean => 1;
 
-has root => ( qw(:rw :required), isa => '_p_svn_fs_root_t' );
+class_type 'SvnRoot', { class => '_p_svn_fs_root_t' };
+coerce 'SvnRoot',
+    from Moose::Util::TypeConstraints::create_class_type_constraint(
+    '_p_svn_fs_t'),
+    via { $_->revision_root( $_->youngest_rev ) };
+has root => ( qw(:rw :required :coerce), isa => 'SvnRoot' );
 
 has tree => (
     qw(:ro :required :lazy),
