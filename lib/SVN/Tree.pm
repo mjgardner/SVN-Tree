@@ -5,7 +5,6 @@ package SVN::Tree;
 use strict;
 
 # VERSION
-use English '-no_match_vars';
 use List::MoreUtils 'any';
 use Path::Class;
 use SVN::Core;
@@ -23,7 +22,7 @@ has tree => (
     isa      => 'Tree::Path::Class',
     writer   => '_set_tree',
     init_arg => undef,
-    default  => sub { $ARG[0]->_root_to_tree( $ARG[0]->root ) },
+    default  => sub { $_[0]->_root_to_tree( $_[0]->root ) },
 );
 
 has projects => (
@@ -45,16 +44,17 @@ sub _build_projects {
     my $tree = $self->tree;
     return [$tree] if _match_svn_dirs( _children_value($tree) );
     return [ $tree->children ]
-        if _match_svn_dirs( map { _children_value($ARG) } $tree->children );
+        if _match_svn_dirs( map { _children_value($_) } $tree->children );
     return [];
 }
 
 sub _match_svn_dirs {
-    return any { $_ ~~ [qw(trunk branches tags)] } @ARG;
+    my @dirs = @_;
+    return any { $_ ~~ [qw(trunk branches tags)] } @dirs;
 }
 
 sub _children_value {
-    return map { $ARG->value->stringify } shift->children;
+    return map { $_->value->stringify } shift->children;
 }
 
 sub _build_branches {
@@ -62,7 +62,7 @@ sub _build_branches {
     my %branches;
     for my $project ( @{ $self->projects } ) {
         @{ $branches{ $project->value->stringify } }
-            = map { _trunk_or_branches($ARG) } $project->children;
+            = map { _trunk_or_branches($_) } $project->children;
     }
     return \%branches;
 }
@@ -70,15 +70,20 @@ sub _build_branches {
 sub _trunk_or_branches {
     my $tree = shift;
     given ( $tree->value ) {
-        when ('trunk')    { return $tree }
-        when ('branches') { return $tree->children }
+        when ('trunk') { return $tree }
+        when ('branches') {
+            my $path = $tree->path;
+            return
+                map { Tree::Path::Class->new( dir( $path, $_->value ) ) }
+                $tree->children;
+        }
     }
     return;
 }
 
 # recreate tree every time root is changed
 after root => sub {
-    my ( $self, $root ) = @ARG;
+    my ( $self, $root ) = @_;
     return if !$root;
     $self->_set_tree( $self->_root_to_tree($root) );
     $self->_set_projects( $self->_build_projects );
@@ -87,7 +92,7 @@ after root => sub {
 };
 
 sub _root_to_tree {
-    my ( $self, $root ) = @ARG;
+    my ( $self, $root ) = @_;
     my $tree        = Tree::Path::Class->new(q{/});
     my $entries_ref = $root->dir_entries(q{/});
     while ( my ( $name => $dirent ) = each %{$entries_ref} ) {
@@ -97,7 +102,7 @@ sub _root_to_tree {
 }
 
 sub _dirent_to_tree {
-    my ( $self, $entry_name, $dirent ) = @ARG;
+    my ( $self, $entry_name, $dirent ) = @_;
 
     my $name = $dirent->name;
     my $tree = Tree::Path::Class->new();
