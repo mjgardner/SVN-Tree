@@ -61,7 +61,7 @@ sub _build_branches {
     my $self = shift;
     my %branches;
     for my $project ( @{ $self->projects } ) {
-        @{ $branches{$project} }
+        @{ $branches{ $project->value->stringify } }
             = map { _trunk_or_branches($ARG) } $project->children;
     }
     return \%branches;
