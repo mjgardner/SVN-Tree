@@ -10,28 +10,14 @@ use Path::Class;
 use SVN::Core;
 use SVN::Fs;
 use SVN::Repos;
+use SVN::Types 'SvnRoot';
 use Tree::Path::Class;
 use Moose;
-use Moose::Util::TypeConstraints;
 use MooseX::Has::Options;
 use MooseX::Types::Moose qw(ArrayRef HashRef Maybe);
 use MooseX::MarkAsMethods autoclean => 1;
 
-class_type 'SvnRoot', { class => '_p_svn_fs_root_t' };
-coerce 'SvnRoot',
-    from Moose::Util::TypeConstraints::create_class_type_constraint(
-    '_p_svn_fs_t'),
-    via { $_->revision_root( $_->youngest_rev ) },
-
-    from Moose::Util::TypeConstraints::create_class_type_constraint(
-    '_p_svn_fs_txn_t'),
-    via { $_->root },
-
-    from Moose::Util::TypeConstraints::create_class_type_constraint(
-    '_p_svn_repos_t'),
-    via { $_->fs->revision_root( $_->fs->youngest_rev ) };
-
-has root => ( qw(:rw :required :coerce), isa => 'SvnRoot' );
+has root => ( qw(:rw :required :coerce), isa => SvnRoot );
 
 has tree => (
     qw(:ro :required :lazy),
