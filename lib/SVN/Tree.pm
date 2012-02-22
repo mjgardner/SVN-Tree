@@ -43,13 +43,18 @@ has branches => (
 sub _build_projects {
     my $self = shift;
     my $tree = $self->tree;
-    given ( \&_match_svn_dirs ) {
-        when ( $_->( _children_value($tree) ) ) { return [$tree] }
-        when ( $_->( map { _children_value($ARG) } $tree->children ) ) {
-            return [ $tree->children ];
-        }
-    }
+    return [$tree] if _match_svn_dirs( _children_value($tree) );
+    return [ $tree->children ]
+        if _match_svn_dirs( map { _children_value($ARG) } $tree->children );
     return [];
+}
+
+sub _match_svn_dirs {
+    return any { $_ ~~ [qw(trunk branches tags)] } @ARG;
+}
+
+sub _children_value {
+    return map { $ARG->value->stringify } shift->children;
 }
 
 sub _build_branches {
@@ -69,15 +74,6 @@ sub _trunk_or_branches {
         when ('branches') { return $tree->children }
     }
     return;
-}
-
-sub _match_svn_dirs {
-    return any { $_ ~~ [qw(trunk branches tags)] } @ARG;
-}
-
-sub _children_value {
-    return if !$ARG[0];
-    return map { $ARG->value } shift->children;
 }
 
 # recreate tree every time root is changed
