@@ -20,6 +20,9 @@
          }
       },
       "runtime" : {
+         "recommends" : {
+            "Alien::SVN" : "v1.6.12"
+         },
          "requires" : {
             "List::MoreUtils" : "0",
             "Modern::Perl" : "0",
@@ -55,18 +58,19 @@
          }
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
          "web" : "https://github.com/mjgardner/SVN-Tree/issues"
       },
+      "homepage" : "http://metacpan.org/release/SVN-Tree/",
       "repository" : {
          "type" : "git",
          "url" : "git://github.com/mjgardner/SVN-Tree.git",
          "web" : "https://github.com/mjgardner/SVN-Tree"
       }
    },
-   "version" : "0.001",
+   "version" : "0.002",
    "x_Dist_Zilla" : {
       "plugins" : [
          {
@@ -148,6 +152,17 @@
                }
             },
             "name" : "Prereqs",
+            "version" : "4.300009"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Prereqs",
+            "config" : {
+               "Dist::Zilla::Plugin::Prereqs" : {
+                  "phase" : "runtime",
+                  "type" : "recommends"
+               }
+            },
+            "name" : "Recommends",
             "version" : "4.300009"
          },
          {
@@ -374,7 +389,7 @@
       "zilla" : {
          "class" : "Dist::Zilla::Dist::Builder",
          "config" : {
-            "is_trial" : "1"
+            "is_trial" : "0"
          },
          "version" : "4.300009"
       }
