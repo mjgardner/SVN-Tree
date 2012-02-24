@@ -1,7 +1,7 @@
 use utf8;
 use Modern::Perl;
 
-package SVN::Types;
+package MooseX::Types::SVN;
 use strict;
 
 # VERSION
@@ -42,7 +42,7 @@ coerce SvnRepos, from Dir, via {
 =head1 SYNOPSIS
 
     use Moose;
-    use SVN::Types qw(SvnRoot SvnFs SvnTxn SvnRepos);
+    use MooseX::Types::SVN qw(SvnRoot SvnFs SvnTxn SvnRepos);
 
     has root => (
         is     => 'ro',

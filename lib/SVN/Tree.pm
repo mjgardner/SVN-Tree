@@ -10,11 +10,11 @@ use Path::Class;
 use SVN::Core;
 use SVN::Fs;
 use SVN::Repos;
-use SVN::Types 'SvnRoot';
 use Tree::Path::Class;
 use Moose;
 use MooseX::Has::Options;
 use MooseX::Types::Moose qw(ArrayRef HashRef Maybe);
+use MooseX::Types::SVN 'SvnRoot';
 use MooseX::MarkAsMethods autoclean => 1;
 
 has root => ( qw(:rw :required :coerce), isa => SvnRoot );
