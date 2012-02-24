@@ -26,11 +26,13 @@ coerce SvnFs, from SvnRepos, via { $_->fs };
 coerce SvnRepos, from Dir, via {
     ## no critic (Subroutines::ProhibitCallsToUnexportedSubs)
     my $dir = $_;
-    try { SVN::Repos::open("$dir") }
+    my $repos;
+    try { $repos = SVN::Repos::open("$dir") }
     catch {
         ## no critic (ValuesAndExpressions::ProhibitMagicNumbers)
-        SVN::Repos::create( "$dir", (undef) x 4 );
+        $repos = SVN::Repos::create( "$dir", (undef) x 4 );
     };
+    return $repos;
 };
 
 1;
