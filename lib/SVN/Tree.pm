@@ -2,9 +2,12 @@ use utf8;
 use Modern::Perl;
 
 package SVN::Tree;
+{
+    $SVN::Tree::DIST = 'SVN-Tree';
+}
 use strict;
 
-# VERSION
+our $VERSION = '0.001';    # VERSION
 use List::MoreUtils 'any';
 use Path::Class;
 use SVN::Core;
@@ -135,6 +138,23 @@ no Moose;
 
 # ABSTRACT: SVN::Fs + Tree::Path::Class
 
+__END__
+
+=pod
+
+=for :stopwords Mark Gardner cpan testmatrix url annocpan anno bugtracker rt cpants
+kwalitee diff irc mailto metadata placeholders metacpan
+
+=encoding utf8
+
+=head1 NAME
+
+SVN::Tree - SVN::Fs + Tree::Path::Class
+
+=head1 VERSION
+
+version 0.001
+
 =head1 SYNOPSIS
 
     use SVN::Tree;
@@ -155,17 +175,19 @@ L<Perl Subversion bindings|Alien::SVN>, enabling you to traverse the files and
 directories of Subversion revisions and transactions, termed
 L<roots|SVN::Fs/_p_svn_fs_root> in Subversion API parlance.
 
-=attr root
+=head1 ATTRIBUTES
+
+=head2 root
 
 Required attribute referencing a L<_p_svn_fs_root|SVN::Fs/_p_svn_fs_root> object.
 
-=attr tree
+=head2 tree
 
 Read-only accessor for the L<Tree::Path::Class|Tree::Path::Class> object
 describing the filesystem hierarchy contained in the C<root>.  Will be updated
 every time the C<root> attribute is changed.
 
-=attr projects
+=head2 projects
 
 Read-only accessor returning an array reference containing one or more
 L<Tree::Path::Class|Tree::Path::Class> hierarchies for the top-level project
@@ -175,7 +197,7 @@ to the same hierarchy available through the C<tree> attribute.
 
 Like C<tree> this will also be updated with C<root> changes.
 
-=attr branches
+=head2 branches
 
 Read-only accessor returning a hash reference of arrays containing
 L<Tree::Path::Class|Tree::Path::Class> objects for each branch in each project
@@ -191,3 +213,105 @@ L<MooseX::Types::SVN|MooseX::Types::SVN>, a
 L<Moose type library|MooseX::Types> for the Subversion Perl bindings. This may
 be split off into its own distribution at a later point if it proves useful in
 other projects.
+
+=head1 SUPPORT
+
+=head2 Perldoc
+
+You can find documentation for this module with the perldoc command.
+
+  perldoc SVN::Tree
+
+=head2 Websites
+
+The following websites have more information about this module, and may be of help to you. As always,
+in addition to those websites please use your favorite search engine to discover more resources.
+
+=over 4
+
+=item *
+
+Search CPAN
+
+The default CPAN search engine, useful to view POD in HTML format.
+
+L<http://search.cpan.org/dist/SVN-Tree>
+
+=item *
+
+AnnoCPAN
+
+The AnnoCPAN is a website that allows community annotations of Perl module documentation.
+
+L<http://annocpan.org/dist/SVN-Tree>
+
+=item *
+
+CPAN Ratings
+
+The CPAN Ratings is a website that allows community ratings and reviews of Perl modules.
+
+L<http://cpanratings.perl.org/d/SVN-Tree>
+
+=item *
+
+CPANTS
+
+The CPANTS is a website that analyzes the Kwalitee ( code metrics ) of a distribution.
+
+L<http://cpants.perl.org/dist/overview/SVN-Tree>
+
+=item *
+
+CPAN Testers
+
+The CPAN Testers is a network of smokers who run automated tests on uploaded CPAN distributions.
+
+L<http://www.cpantesters.org/distro/S/SVN-Tree>
+
+=item *
+
+CPAN Testers Matrix
+
+The CPAN Testers Matrix is a website that provides a visual overview of the test results for a distribution on various Perls/platforms.
+
+L<http://matrix.cpantesters.org/?dist=SVN-Tree>
+
+=item *
+
+CPAN Testers Dependencies
+
+The CPAN Testers Dependencies is a website that shows a chart of the test results of all dependencies for a distribution.
+
+L<http://deps.cpantesters.org/?module=SVN::Tree>
+
+=back
+
+=head2 Bugs / Feature Requests
+
+Please report any bugs or feature requests through the web
+interface at L<https://github.com/mjgardner/SVN-Tree/issues>. You will be automatically notified of any
+progress on the request by the system.
+
+=head2 Source Code
+
+The code is open to the world, and available for you to hack on. Please feel free to browse it and play
+with it, or whatever. If you want to contribute patches, please send me a diff or prod me to pull
+from your repository :)
+
+L<https://github.com/mjgardner/SVN-Tree>
+
+  git clone git://github.com/mjgardner/SVN-Tree.git
+
+=head1 AUTHOR
+
+Mark Gardner <mjgardner@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2012 by Mark Gardner.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut
