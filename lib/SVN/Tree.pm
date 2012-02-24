@@ -183,3 +183,11 @@ in the repository.  The hash keys are the names of the projects, and F<trunk>
 counts as a branch.
 
 Like C<tree> this will also be updated with C<root> changes.
+
+=head1 SEE ALSO
+
+The distribution for this module also includes
+L<MooseX::Types::SVN|MooseX::Types::SVN>, a
+L<Moose type library|MooseX::Types> for the Subversion Perl bindings. This may
+be split off into its own distribution at a later point if it proves useful in
+other projects.
