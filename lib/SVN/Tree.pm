@@ -7,7 +7,7 @@ package SVN::Tree;
 }
 use strict;
 
-our $VERSION = '0.002';    # VERSION
+our $VERSION = '0.003';    # VERSION
 use List::MoreUtils 'any';
 use Path::Class;
 use SVN::Core;
@@ -153,7 +153,7 @@ SVN::Tree - SVN::Fs + Tree::Path::Class
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 SYNOPSIS
 

@@ -34,7 +34,7 @@ requires:
   MooseX::Types::Moose: 0
   MooseX::Types::Path::Class: 0
   Path::Class: 0
-  SVN::Core: 0
+  SVN::Core: 0.0.0
   SVN::Fs: 0
   SVN::Repos: 0
   Tree::Path::Class: 0
@@ -46,7 +46,7 @@ resources:
   bugtracker: https://github.com/mjgardner/SVN-Tree/issues
   homepage: http://metacpan.org/release/SVN-Tree/
   repository: git://github.com/mjgardner/SVN-Tree.git
-version: 0.002
+version: 0.003
 x_Dist_Zilla:
   plugins:
     -
@@ -300,5 +300,5 @@ x_Dist_Zilla:
   zilla:
     class: Dist::Zilla::Dist::Builder
     config:
-      is_trial: 0
+      is_trial: 1
     version: 4.300009

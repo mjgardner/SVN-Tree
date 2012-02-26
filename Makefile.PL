@@ -39,7 +39,7 @@ my %WriteMakefileArgs = (
     "MooseX::Types::Moose" => 0,
     "MooseX::Types::Path::Class" => 0,
     "Path::Class" => 0,
-    "SVN::Core" => 0,
+    "SVN::Core" => "0.0.0",
     "SVN::Fs" => 0,
     "SVN::Repos" => 0,
     "Tree::Path::Class" => 0,
@@ -47,7 +47,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "utf8" => 0
   },
-  "VERSION" => "0.002",
+  "VERSION" => "0.003",
   "test" => {
     "TESTS" => "t/*.t"
   }

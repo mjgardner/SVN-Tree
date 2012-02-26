@@ -7,7 +7,7 @@ package MooseX::Types::SVN;
 }
 use strict;
 
-our $VERSION = '0.002';    # VERSION
+our $VERSION = '0.003';    # VERSION
 use Try::Tiny;
 use SVN::Core;
 use SVN::Fs;
@@ -57,7 +57,7 @@ MooseX::Types::SVN - Moose types for the Subversion Perl bindings
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 SYNOPSIS
 
