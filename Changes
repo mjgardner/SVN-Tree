@@ -1,6 +1,8 @@
 Revision history for SVN-Tree
 
 {{$NEXT}}
+
+0.003     2012-02-26 16:24:45 America/New_York
     fiddle with CPAN prereqs; no code changes
 0.002     2012-02-24 17:46:57 America/New_York
     first official releas
