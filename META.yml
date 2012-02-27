@@ -22,9 +22,8 @@ meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: SVN-Tree
-recommends:
-  Alien::SVN: 1.6.12
 requires:
+  Alien::SVN: 1.6.12
   List::MoreUtils: 0
   Modern::Perl: 0
   Moose: 0
@@ -34,7 +33,7 @@ requires:
   MooseX::Types::Moose: 0
   MooseX::Types::Path::Class: 0
   Path::Class: 0
-  SVN::Core: 0.0.0
+  SVN::Core: 0
   SVN::Fs: 0
   SVN::Repos: 0
   Tree::Path::Class: 0
@@ -46,7 +45,7 @@ resources:
   bugtracker: https://github.com/mjgardner/SVN-Tree/issues
   homepage: http://metacpan.org/release/SVN-Tree/
   repository: git://github.com/mjgardner/SVN-Tree.git
-version: 0.003
+version: 0.004
 x_Dist_Zilla:
   plugins:
     -
@@ -112,14 +111,6 @@ x_Dist_Zilla:
           phase: runtime
           type: requires
       name: Prereqs
-      version: 4.300009
-    -
-      class: Dist::Zilla::Plugin::Prereqs
-      config:
-        Dist::Zilla::Plugin::Prereqs:
-          phase: runtime
-          type: recommends
-      name: Recommends
       version: 4.300009
     -
       class: Dist::Zilla::Plugin::NextRelease
@@ -300,5 +291,5 @@ x_Dist_Zilla:
   zilla:
     class: Dist::Zilla::Dist::Builder
     config:
-      is_trial: 1
+      is_trial: 0
     version: 4.300009

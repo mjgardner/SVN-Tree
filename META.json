@@ -20,10 +20,8 @@
          }
       },
       "runtime" : {
-         "recommends" : {
-            "Alien::SVN" : "v1.6.12"
-         },
          "requires" : {
+            "Alien::SVN" : "v1.6.12",
             "List::MoreUtils" : "0",
             "Modern::Perl" : "0",
             "Moose" : "0",
@@ -33,7 +31,7 @@
             "MooseX::Types::Moose" : "0",
             "MooseX::Types::Path::Class" : "0",
             "Path::Class" : "0",
-            "SVN::Core" : "v0.0.0",
+            "SVN::Core" : "0",
             "SVN::Fs" : "0",
             "SVN::Repos" : "0",
             "Tree::Path::Class" : "0",
@@ -58,7 +56,7 @@
          }
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
          "web" : "https://github.com/mjgardner/SVN-Tree/issues"
@@ -70,7 +68,7 @@
          "web" : "https://github.com/mjgardner/SVN-Tree"
       }
    },
-   "version" : "0.003",
+   "version" : "0.004",
    "x_Dist_Zilla" : {
       "plugins" : [
          {
@@ -152,17 +150,6 @@
                }
             },
             "name" : "Prereqs",
-            "version" : "4.300009"
-         },
-         {
-            "class" : "Dist::Zilla::Plugin::Prereqs",
-            "config" : {
-               "Dist::Zilla::Plugin::Prereqs" : {
-                  "phase" : "runtime",
-                  "type" : "recommends"
-               }
-            },
-            "name" : "Recommends",
             "version" : "4.300009"
          },
          {
@@ -389,7 +376,7 @@
       "zilla" : {
          "class" : "Dist::Zilla::Dist::Builder",
          "config" : {
-            "is_trial" : "1"
+            "is_trial" : "0"
          },
          "version" : "4.300009"
       }
