@@ -1,6 +1,8 @@
 Revision history for SVN-Tree
 
 {{$NEXT}}
+
+0.004     2012-02-27 10:06:28 America/New_York
     Require Alien::SVN in prereqs; no code changes
 0.003     2012-02-26 16:24:45 America/New_York
     trial release to CPAN Testers
