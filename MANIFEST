@@ -8,6 +8,7 @@ META.yml
 Makefile.PL
 README
 dist.ini
+inc/SVNMakeMaker.pm
 lib/MooseX/Types/SVN.pm
 lib/SVN/Tree.pm
 perlcritic.rc

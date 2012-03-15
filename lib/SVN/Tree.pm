@@ -7,7 +7,7 @@ package SVN::Tree;
 }
 use strict;
 
-our $VERSION = '0.004';    # VERSION
+our $VERSION = '0.005';    # VERSION
 use List::MoreUtils 'any';
 use Path::Class;
 use SVN::Core;
@@ -136,7 +136,7 @@ __PACKAGE__->meta->make_immutable();
 no Moose;
 1;
 
-# ABSTRACT: SVN::Fs + Tree::Path::Class
+# ABSTRACT: SVN::Fs plus Tree::Path::Class
 
 __END__
 
@@ -149,11 +149,11 @@ cpants kwalitee diff irc mailto metadata placeholders metacpan
 
 =head1 NAME
 
-SVN::Tree - SVN::Fs + Tree::Path::Class
+SVN::Tree - SVN::Fs plus Tree::Path::Class
 
 =head1 VERSION
 
-version 0.004
+version 0.005
 
 =head1 SYNOPSIS
 
@@ -173,13 +173,14 @@ version 0.004
 This module marries L<Tree::Path::Class|Tree::Path::Class> to the
 L<Perl Subversion bindings|Alien::SVN>, enabling you to traverse the files and
 directories of Subversion revisions and transactions, termed
-L<roots|SVN::Fs/_p_svn_fs_root> in Subversion API parlance.
+L<roots|SVN::Fs/_p_svn_fs_root_t> in Subversion API parlance.
 
 =head1 ATTRIBUTES
 
 =head2 root
 
-Required attribute referencing a L<_p_svn_fs_root|SVN::Fs/_p_svn_fs_root> object.
+Required attribute referencing a L<_p_svn_fs_root|SVN::Fs/_p_svn_fs_root_t>
+object.
 
 =head2 tree
 

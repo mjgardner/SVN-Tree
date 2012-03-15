@@ -1,5 +1,5 @@
 ---
-abstract: 'SVN::Fs + Tree::Path::Class'
+abstract: 'SVN::Fs plus Tree::Path::Class'
 author:
   - 'Mark Gardner <mjgardner@cpan.org>'
 build_requires:
@@ -16,14 +16,14 @@ build_requires:
 configure_requires:
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300009, CPAN::Meta::Converter version 2.120530'
+generated_by: 'Dist::Zilla version 4.300009, CPAN::Meta::Converter version 2.120630'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: SVN-Tree
 requires:
-  Alien::SVN: 1.6.12
+  Alien::SVN: 0
   List::MoreUtils: 0
   Modern::Perl: 0
   Moose: 0
@@ -45,7 +45,7 @@ resources:
   bugtracker: https://github.com/mjgardner/SVN-Tree/issues
   homepage: http://metacpan.org/release/SVN-Tree/
   repository: git://github.com/mjgardner/SVN-Tree.git
-version: 0.004
+version: 0.005
 x_Dist_Zilla:
   plugins:
     -
@@ -81,10 +81,6 @@ x_Dist_Zilla:
       name: '@Filter/ShareDir'
       version: 4.300009
     -
-      class: Dist::Zilla::Plugin::MakeMaker
-      name: '@Filter/MakeMaker'
-      version: 4.300009
-    -
       class: Dist::Zilla::Plugin::Manifest
       name: '@Filter/Manifest'
       version: 4.300009
@@ -101,6 +97,10 @@ x_Dist_Zilla:
       name: '@Filter/UploadToCPAN'
       version: 4.300009
     -
+      class: inc::SVNMakeMaker
+      name: SVNMakeMaker
+      version: ~
+    -
       class: Dist::Zilla::Plugin::AutoPrereqs
       name: AutoPrereqs
       version: 4.300009
@@ -111,6 +111,30 @@ x_Dist_Zilla:
           phase: runtime
           type: requires
       name: Prereqs
+      version: 4.300009
+    -
+      class: Dist::Zilla::Plugin::Prereqs
+      config:
+        Dist::Zilla::Plugin::Prereqs:
+          phase: develop
+          type: requires
+      name: DevelopRequires
+      version: 4.300009
+    -
+      class: Dist::Zilla::Plugin::Prereqs
+      config:
+        Dist::Zilla::Plugin::Prereqs:
+          phase: develop
+          type: recommends
+      name: DevelopRecommends
+      version: 4.300009
+    -
+      class: Dist::Zilla::Plugin::Prereqs
+      config:
+        Dist::Zilla::Plugin::Prereqs:
+          phase: test
+          type: recommends
+      name: TestRecommends
       version: 4.300009
     -
       class: Dist::Zilla::Plugin::NextRelease
@@ -255,15 +279,15 @@ x_Dist_Zilla:
     -
       class: Dist::Zilla::Plugin::GitHub::Meta
       name: '@GitHub/GitHub::Meta'
-      version: 0.14
+      version: 0.16
     -
       class: Dist::Zilla::Plugin::GitHub::Update
       name: '@GitHub/GitHub::Update'
-      version: 0.14
+      version: 0.16
     -
       class: Dist::Zilla::Plugin::InstallRelease
       name: InstallRelease
-      version: 0.007
+      version: 0.008
     -
       class: Dist::Zilla::Plugin::FinderCode
       name: ':InstallModules'

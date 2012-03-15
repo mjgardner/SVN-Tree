@@ -1,10 +1,10 @@
 {
-   "abstract" : "SVN::Fs + Tree::Path::Class",
+   "abstract" : "SVN::Fs plus Tree::Path::Class",
    "author" : [
       "Mark Gardner <mjgardner@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 4.300009, CPAN::Meta::Converter version 2.120530",
+   "generated_by" : "Dist::Zilla version 4.300009, CPAN::Meta::Converter version 2.120630",
    "license" : [
       "perl_5"
    ],
@@ -19,9 +19,25 @@
             "ExtUtils::MakeMaker" : "6.30"
          }
       },
+      "develop" : {
+         "recommends" : {
+            "Test::EOL" : "0"
+         },
+         "requires" : {
+            "Dist::Zilla" : "0",
+            "Dist::Zilla::Plugin::MakeMaker::Awesome" : "0",
+            "Perl::Critic::Bangs" : "0",
+            "Perl::Critic::Lax" : "0",
+            "Perl::Critic::Pulp" : "0",
+            "Perl::Critic::StricterSubs" : "0",
+            "Pod::Weaver::Plugin::Encoding" : "0",
+            "Pod::Weaver::Plugin::StopWords" : "0",
+            "Pod::Weaver::Section::Support" : "0"
+         }
+      },
       "runtime" : {
          "requires" : {
-            "Alien::SVN" : "v1.6.12",
+            "Alien::SVN" : "0",
             "List::MoreUtils" : "0",
             "Modern::Perl" : "0",
             "Moose" : "0",
@@ -42,6 +58,9 @@
          }
       },
       "test" : {
+         "recommends" : {
+            "Test::CPAN::Meta::JSON" : "0"
+         },
          "requires" : {
             "Carp" : "0",
             "English" : "0",
@@ -68,7 +87,7 @@
          "web" : "https://github.com/mjgardner/SVN-Tree"
       }
    },
-   "version" : "0.004",
+   "version" : "0.005",
    "x_Dist_Zilla" : {
       "plugins" : [
          {
@@ -112,11 +131,6 @@
             "version" : "4.300009"
          },
          {
-            "class" : "Dist::Zilla::Plugin::MakeMaker",
-            "name" : "@Filter/MakeMaker",
-            "version" : "4.300009"
-         },
-         {
             "class" : "Dist::Zilla::Plugin::Manifest",
             "name" : "@Filter/Manifest",
             "version" : "4.300009"
@@ -137,6 +151,11 @@
             "version" : "4.300009"
          },
          {
+            "class" : "inc::SVNMakeMaker",
+            "name" : "SVNMakeMaker",
+            "version" : null
+         },
+         {
             "class" : "Dist::Zilla::Plugin::AutoPrereqs",
             "name" : "AutoPrereqs",
             "version" : "4.300009"
@@ -150,6 +169,39 @@
                }
             },
             "name" : "Prereqs",
+            "version" : "4.300009"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Prereqs",
+            "config" : {
+               "Dist::Zilla::Plugin::Prereqs" : {
+                  "phase" : "develop",
+                  "type" : "requires"
+               }
+            },
+            "name" : "DevelopRequires",
+            "version" : "4.300009"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Prereqs",
+            "config" : {
+               "Dist::Zilla::Plugin::Prereqs" : {
+                  "phase" : "develop",
+                  "type" : "recommends"
+               }
+            },
+            "name" : "DevelopRecommends",
+            "version" : "4.300009"
+         },
+         {
+            "class" : "Dist::Zilla::Plugin::Prereqs",
+            "config" : {
+               "Dist::Zilla::Plugin::Prereqs" : {
+                  "phase" : "test",
+                  "type" : "recommends"
+               }
+            },
+            "name" : "TestRecommends",
             "version" : "4.300009"
          },
          {
@@ -330,17 +382,17 @@
          {
             "class" : "Dist::Zilla::Plugin::GitHub::Meta",
             "name" : "@GitHub/GitHub::Meta",
-            "version" : "0.14"
+            "version" : "0.16"
          },
          {
             "class" : "Dist::Zilla::Plugin::GitHub::Update",
             "name" : "@GitHub/GitHub::Update",
-            "version" : "0.14"
+            "version" : "0.16"
          },
          {
             "class" : "Dist::Zilla::Plugin::InstallRelease",
             "name" : "InstallRelease",
-            "version" : "0.007"
+            "version" : "0.008"
          },
          {
             "class" : "Dist::Zilla::Plugin::FinderCode",
