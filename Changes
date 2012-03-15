@@ -1,7 +1,12 @@
 Revision history for SVN-Tree
 
 {{$NEXT}}
-
+    Better detection of botched Alien::SVN installs courtesy of
+    SVN-Simple-Hook
+    Support for Travis distributed build platform when developing
+    (http://travis-ci.org/)
+    Lots more metadata on development requirements and dev/test
+    recommendations
 0.004     2012-02-27 10:06:28 America/New_York
     Require Alien::SVN in prereqs; no code changes
 0.003     2012-02-26 16:24:45 America/New_York
