@@ -133,7 +133,7 @@ __PACKAGE__->meta->make_immutable();
 no Moose;
 1;
 
-# ABSTRACT: SVN::Fs + Tree::Path::Class
+# ABSTRACT: SVN::Fs plus Tree::Path::Class
 
 =head1 SYNOPSIS
 
