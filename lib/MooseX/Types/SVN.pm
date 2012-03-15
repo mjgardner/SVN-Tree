@@ -59,7 +59,7 @@ another.
 
 =type SvnRoot
 
-Represents a L<_p_svn_fs_root|SVN::Fs/_p_svn_fs_root>, and can coerce from a
+Represents a L<_p_svn_fs_root|SVN::Fs/_p_svn_fs_root_t>, and can coerce from a
 C<SvnFs> (retrieving the youngest revision root) or a C<SvnTxn> (retrieving
 the transaction root).
 
@@ -70,10 +70,10 @@ C<SvnRepos> by retrieving the repository filesystem object.
 
 =type SvnTxn
 
-Represents a L<_p_svn_fs_txn_t|SVN::Fs/_p_svn_txn_t>.
+Represents a L<_p_svn_fs_txn_t|SVN::Fs/_p_svn_fs_txn_t>.
 
 =type SvnRepos
 
-Represents a L<_p_svn_repos_t|SVN::Repos/_p_svn_repos_t>, and can coerce from
+Represents a L<_p_svn_repos_t|SVN::Repos>, and can coerce from
 a L<Path::Class::Dir|Path::Class::Dir> object by first trying to open, then
 create a repository at the specified directory location.

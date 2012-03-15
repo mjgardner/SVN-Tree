@@ -153,11 +153,12 @@ no Moose;
 This module marries L<Tree::Path::Class|Tree::Path::Class> to the
 L<Perl Subversion bindings|Alien::SVN>, enabling you to traverse the files and
 directories of Subversion revisions and transactions, termed
-L<roots|SVN::Fs/_p_svn_fs_root> in Subversion API parlance.
+L<roots|SVN::Fs/_p_svn_fs_root_t> in Subversion API parlance.
 
 =attr root
 
-Required attribute referencing a L<_p_svn_fs_root|SVN::Fs/_p_svn_fs_root> object.
+Required attribute referencing a L<_p_svn_fs_root|SVN::Fs/_p_svn_fs_root_t>
+object.
 
 =attr tree
 
